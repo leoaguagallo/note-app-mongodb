@@ -3,6 +3,8 @@ const express = require('express');
 //motor de plantillas html
 const exphbs = require('express-handlebars');
 const path = require('path');
+//tipos fr petiviones
+const morgan = require('morgan');
 
 //inicializacion
 const app =  express();
@@ -22,6 +24,7 @@ app.set('view engine', '.hbs');//motor de vistas
 
 //Middlewares
 app.use(express.urlencoded({extended: false})); //conversion a json
+app.use(morgan('dev'));
 
 //Global Variables
 

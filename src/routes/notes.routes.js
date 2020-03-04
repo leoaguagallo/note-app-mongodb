@@ -14,7 +14,7 @@ const {
 
 //Nueva Nota
 router.get('/notes/add', render_NoteFrom);
-router.post('/notes/add', render_CreateNewNote);
+router.post('/notes/new-note', render_CreateNewNote);
 
 //Obtener todas notas
 router.get('/notes', render_Notes);

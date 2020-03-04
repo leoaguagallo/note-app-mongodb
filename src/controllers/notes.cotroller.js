@@ -1,10 +1,11 @@
 const node_controller = {};
 
 node_controller.render_NoteFrom = (req, res) =>{
-    res.send('Notes Add');
+    res.render('notes/new-note');
 }
 
 node_controller.render_CreateNewNote = (req, res) =>{
+    //console.log(req.body); //datos del formulario
     res.send('New Note');
 }
 
