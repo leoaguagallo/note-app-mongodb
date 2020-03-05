@@ -1,0 +1,20 @@
+<div class="row">
+    {{#each all_notes}}
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title d-flex justify-content-between aling-center">
+                    {{ title }} <a href="/notes/edit/{{_id}}"> </a><i class="fa fa-pencil"></i>
+                </h4>
+
+                <p>{{description}}</p>
+                <form action="/notes/delete/{{_id}}" method="POST">
+                    <button type="submit" class="btn btn-danger btn-block">
+                        Delete
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</div>
