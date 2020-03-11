@@ -16,7 +16,7 @@ node_controller.render_CreateNewNote = async (req, res) =>{
     //console.log(new_Note);
     await new_Note.save();
 
-    res.send('New Note');
+    res.redirect('/notes'); //refescar
 }
 
 node_controller.render_Notes = async (req, res) =>{
@@ -28,12 +28,15 @@ node_controller.render_EditForm = (req, res) => {
     res.send('Render Edit Form');
 }
 
-node_controller.update_Note = (req, res) => {
-    res.send('Update Note');
+node_controller.update_Note =  (req, res) => {
+    
+    res.send('nota actualizada');
 }
 
-node_controller.delete_notes = (req, res) => {
-    res.send('Delete Notes');
+node_controller.delete_notes = async (req, res) => {
+    //obtener id ---> req.params.id
+    await Note.findByIdAndDelete(req.params.id);
+    res.redirect('/notes'); //refescar
 }
 
 module.exports = node_controller;

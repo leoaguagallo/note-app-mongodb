@@ -5,7 +5,7 @@ const exphbs = require('express-handlebars');
 const path = require('path');
 //tipos fr petiviones
 const morgan = require('morgan');
-
+const methodOverride = require('method-override');
 //inicializacion
 const app =  express();
 
@@ -25,6 +25,7 @@ app.set('view engine', '.hbs');//motor de vistas
 //Middlewares
 app.use(express.urlencoded({extended: false})); //conversion a json
 app.use(morgan('dev'));
+app.use(methodOverride('_method'));
 
 //Global Variables
 
