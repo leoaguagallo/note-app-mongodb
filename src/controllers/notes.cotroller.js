@@ -24,13 +24,15 @@ node_controller.render_Notes = async (req, res) =>{
     res.render('notes/all-notes', { all_notes });
 }
 
-node_controller.render_EditForm = (req, res) => {
-    res.send('Render Edit Form');
+node_controller.render_EditForm = async (req, res) => {
+    const note = await Note.findById(req.params.id); //consulto en base de datos
+    res.render('notes/edit-note', { note }); //envio al formulario la informacion
 }
 
-node_controller.update_Note =  (req, res) => {
-    
-    res.send('nota actualizada');
+node_controller.update_Note = async (req, res) => {
+    const { title, description } = req.body;
+    await Note.findByIdAndUpdate(req.params.id, {title, description});
+    res.redirect('/notes');
 }
 
 node_controller.delete_notes = async (req, res) => {
