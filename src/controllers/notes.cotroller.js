@@ -16,6 +16,9 @@ node_controller.render_CreateNewNote = async (req, res) =>{
     //console.log(new_Note);
     await new_Note.save();
 
+    //envio de mensajes
+    req.flash('success_msg', 'Note add successfully');
+
     res.redirect('/notes'); //refescar
 }
 
@@ -32,12 +35,20 @@ node_controller.render_EditForm = async (req, res) => {
 node_controller.update_Note = async (req, res) => {
     const { title, description } = req.body;
     await Note.findByIdAndUpdate(req.params.id, {title, description});
+
+    //mensaje
+    req.flash('success_msg', 'Note update successfully');
+
     res.redirect('/notes');
 }
 
 node_controller.delete_notes = async (req, res) => {
     //obtener id ---> req.params.id
     await Note.findByIdAndDelete(req.params.id);
+
+    //mensaje 
+    req.flash('success_msg', 'Note deteled successfully');
+
     res.redirect('/notes'); //refescar
 }
 

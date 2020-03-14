@@ -6,7 +6,13 @@ const path = require('path');
 //tipos fr petiviones
 const morgan = require('morgan');
 const methodOverride = require('method-override');
-//inicializacion
+//mensajes 
+const flash = require('connect-flash');
+//sessiones
+const session = require('express-session');
+
+
+//inicializacion del servidor
 const app =  express();
 
 //settings
@@ -27,7 +33,20 @@ app.use(express.urlencoded({extended: false})); //conversion a json
 app.use(morgan('dev'));
 app.use(methodOverride('_method'));
 
+app.use(session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
+}));
+app.use(flash());
+
 //Global Variables
+
+//-->capturar mensajes de cualquier vista
+app.use((req, res, next) => {
+    res.locals.success_msg = req.flash('success_msg');
+    next();
+});
 
 //Routers
 app.use(require('./routes/index.routes'));
