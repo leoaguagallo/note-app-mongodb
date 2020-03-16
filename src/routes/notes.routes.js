@@ -12,18 +12,21 @@ const {
     delete_notes 
 } = require('../controllers/notes.cotroller');
 
+//IMPORTAR VALIDACION DE SECCIONES
+const { isAuthenticated } =  require('../helpers/validation');
+
 //Nueva Nota
-router.get('/notes/add', render_NoteFrom);
-router.post('/notes/new-note', render_CreateNewNote);
+router.get('/notes/add', isAuthenticated, render_NoteFrom);
+router.post('/notes/new-note', isAuthenticated, render_CreateNewNote);
 
 //Obtener todas notas
-router.get('/notes', render_Notes);
+router.get('/notes', isAuthenticated, render_Notes);
 
 //Editar notas
-router.get('/notes/edit/:id', render_EditForm); //return list
-router.put('/notes/edit/:id', update_Note); //envia formulario
+router.get('/notes/edit/:id', isAuthenticated, render_EditForm); //return list
+router.put('/notes/edit/:id', isAuthenticated, update_Note); //envia formulario
 
 //Eliminar notas
-router.delete('/notes/delete/:id', delete_notes);
+router.delete('/notes/delete/:id', isAuthenticated, delete_notes);
 
 module.exports = router;
