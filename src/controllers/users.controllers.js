@@ -3,6 +3,9 @@ const user_controller = {};
 //IMPORTAR MODELO >>-- USERS ---<<
 const User = require('../models/User');
 
+// import paquete
+const passport = require('passport');
+
 //renderizar formulario
 user_controller.render_signUpForm = (req, res) => {
     res.render('users/signup');
@@ -52,12 +55,17 @@ user_controller.render_signinForm = (req, res) => {
     res.render('users/signin');
 };
 
-user_controller.signin = (req, res) => {
-    res.send('signin');
-};
+user_controller.signin = passport.authenticate('local', {
+    failureRedirect: '/users/signin',
+    successRedirect: '/notes',
+    failureFlash: true
+});
 
 user_controller.logout = (req, res) => {
-    res.send('logout');
+    //eliminar seccion del servidor
+    req.logout();
+    req.flash('success_msg', 'You are logged out now.');
+    res.redirect('/users/signin');
 };
 
 module.exports = user_controller;
