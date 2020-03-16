@@ -25,6 +25,7 @@
     "passport-local": "^1.0.0"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "morgan": "^1.9.1"
   }
 }
