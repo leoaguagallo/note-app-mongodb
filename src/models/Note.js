@@ -8,6 +8,11 @@ const NoteSchema = new Schema({
     description: {
         type: String,
         required: true
+    },
+    //campo para notas privadas por users
+    user: {
+        type: String,
+        required: true
     }
 },
 {

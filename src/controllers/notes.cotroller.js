@@ -13,7 +13,11 @@ node_controller.render_CreateNewNote = async (req, res) =>{
 
     //guardar en base de datos
     const new_Note = new Note({title, description});
+    //vincular nota al usuario
+    new_Note.user = req.user.id;
     //console.log(new_Note);
+
+    //guardar en base de datos
     await new_Note.save();
 
     //envio de mensajes
@@ -23,12 +27,19 @@ node_controller.render_CreateNewNote = async (req, res) =>{
 }
 
 node_controller.render_Notes = async (req, res) =>{
-    const all_notes = await Note.find();
+    const all_notes = await Note.find({user: req.user.id}).sort({createdAt: 'desc'}); //consulta notas del usuario
     res.render('notes/all-notes', { all_notes });
 }
 
 node_controller.render_EditForm = async (req, res) => {
     const note = await Note.findById(req.params.id); //consulto en base de datos
+
+    //seguridad: no editar notas de otros con url
+    if (note.user != req.user.id){
+        req.flash('error_msg', 'Not Authorized');
+        return res.redirect('/notes');
+    }
+
     res.render('notes/edit-note', { note }); //envio al formulario la informacion
 }
 
